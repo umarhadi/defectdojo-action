@@ -65,3 +65,6 @@ runs:
         DEFECTDOJO_GITHUB_TOKEN: ${{ inputs.github_token }}
         DEFECTDOJO_GITHUB_REPO: ${{ inputs.github_repository }}
         DEFECTDOJO_REPORTS: ${{ inputs.reports }}
+branding:
+  icon: 'target'
+  color: 'gray-dark'
