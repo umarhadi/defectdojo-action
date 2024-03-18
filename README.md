@@ -7,3 +7,32 @@ This uploads reports to your DefectDojo. It allows to execute the following acti
 5. Integrate SonarQube API and use it for importing the tests.
 6. Get Github Vulnerability report.
 7. Import reports/api scan
+
+## Usage
+
+See [action.yml](https://github.com/C4tWithShell/defectdojo-action/blob/master/action.yml)
+
+### Upload Report
+
+```
+steps:
+  - name: Clone code repository
+    uses: actions/checkout@v2
+  - name: DefectDojo
+    id: defectdojo
+    uses: ivanamat/defectdojo-import-scan@v1
+    with:
+      token: ${{ secrets.DEFECTOJO_TOKEN }}
+      defectdojo_url: ${{ secrets.DEFECTOJO_URL }}
+      product_type: iroha2
+      engagement: ${{ github.ref_name }}
+      tools: ("Trivy Scan" "Github Vulnerability Scan")
+      sonar_projectKey: iroha2:test_repo
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      github_repository: ${{ github.repository }}
+      reports: '{"Github Vulnerability Scan": "github.json"}'
+  - name: Show response
+    run: |
+      set -e
+      printf '%s\n' '${{ steps.defectdojo.outputs.response }}'
+```
