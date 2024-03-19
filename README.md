@@ -20,7 +20,7 @@ steps:
     uses: actions/checkout@v2
   - name: DefectDojo
     id: defectdojo
-    uses: ivanamat/defectdojo-import-scan@v1
+    uses: C4tWithShell/defectdojo-action@1.0.0
     with:
       token: ${{ secrets.DEFECTOJO_TOKEN }}
       defectdojo_url: ${{ secrets.DEFECTOJO_URL }}
