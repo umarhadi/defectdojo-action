@@ -17,10 +17,10 @@ See [action.yml](https://github.com/C4tWithShell/defectdojo-action/blob/master/a
 ```
 steps:
   - name: Clone code repository
-    uses: actions/checkout@v2
+    uses: actions/checkout@v4
   - name: DefectDojo
     id: defectdojo
-    uses: C4tWithShell/defectdojo-action@1.0.0
+    uses: C4tWithShell/defectdojo-action@1.0.1
     with:
       token: ${{ secrets.DEFECTOJO_TOKEN }}
       defectdojo_url: ${{ secrets.DEFECTOJO_URL }}
