@@ -50,8 +50,7 @@ runs:
   using: 'composite'
   steps:
     - id: import
-      run: |
-        ${{ github.action_path }}/entrypoint.sh
+      run: $GITHUB_ACTION_PATH/entrypoint.sh
       shell: bash
       env:
         DEFECTDOJO_TOKEN: ${{ inputs.token }}
