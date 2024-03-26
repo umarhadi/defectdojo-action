@@ -74,7 +74,8 @@ if [[ -z "$environment" ]]; then
     environment=$(curl -X POST "$DEFECTDOJO_URL/api/v2/development_environments/" -H "Authorization: Token $DEFECTDOJO_TOKEN" -H "accept: application/json" -H "Content-Type: application/json" -d "$JSON" | jq -r '.name')
 fi
 
-for testName in "${DEFECTDOJO_TOOLS[@]}"; do
+IFS=',' read -r -a testsArray <<< "$DEFECTDOJO_TOOLS"
+for testName in "${testsArray[@]}"; do
     sonarApiScan=""
     testID=$(curl -X GET "$DEFECTDOJO_URL/api/v2/test_types/?name=${testName// /%20}" -H "Authorization: Token $DEFECTDOJO_TOKEN" -H "accept: application/json" -H "Content-Type: application/json" | jq -r '.results' | jq -r '.[].id')
     if [[ -z "$testID" ]]; then

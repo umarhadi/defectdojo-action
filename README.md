@@ -25,8 +25,9 @@ steps:
       token: ${{ secrets.DEFECTOJO_TOKEN }}
       defectdojo_url: ${{ secrets.DEFECTOJO_URL }}
       product_type: iroha2
+      product: ${{ github.repository }}
       engagement: ${{ github.ref_name }}
-      tools: ("Trivy Scan" "Github Vulnerability Scan")
+      tools: "Trivy Scan, Github Vulnerability Scan"
       sonar_projectKey: iroha2:test_repo
       github_token: ${{ secrets.GITHUB_TOKEN }}
       github_repository: ${{ github.repository }}
