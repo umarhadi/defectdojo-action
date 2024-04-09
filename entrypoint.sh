@@ -142,7 +142,8 @@ for testName in "${testsArray[@]}"; do
                 -F 'deduplication_on_engagement=true' \
                 -F 'create_finding_groups_for_all_findings=false' \
                 -F "environment=$environment" \
-                -F "api_scan_configuration=$sonarApiScan"
+                -F "api_scan_configuration=$sonarApiScan" \
+                -F "branch_tag=$DEFECTDOJO_ENGAGEMENT"
         fi
     else
         ext=$(echo $report | cut -d "." -f 2)
@@ -157,7 +158,8 @@ for testName in "${testsArray[@]}"; do
             -F 'deduplication_on_engagement=true' \
             -F 'create_finding_groups_for_all_findings=false' \
             -F "environment=$environment" \
-            -F "file=@$report;type=application/$ext"
+            -F "file=@$report;type=application/$ext" \
+            -F "branch_tag=$DEFECTDOJO_ENGAGEMENT"
     fi
 done
 
