@@ -20,20 +20,23 @@ steps:
     uses: actions/checkout@v4
   - name: DefectDojo
     id: defectdojo
-    uses: C4tWithShell/defectdojo-action@1.0.1
+    uses: C4tWithShell/defectdojo-action@1.0.5
     with:
       token: ${{ secrets.DEFECTOJO_TOKEN }}
       defectdojo_url: ${{ secrets.DEFECTOJO_URL }}
-      product_type: iroha2
+      product_type: example
       product: ${{ github.repository }}
       engagement: ${{ github.ref_name }}
-      tools: "Trivy Scan, Github Vulnerability Scan"
-      sonar_projectKey: iroha2:test_repo
+      tools: "SonarQube API Import,Github Vulnerability Scan"
+      sonar_projectKey: example:project
       github_token: ${{ secrets.GITHUB_TOKEN }}
       github_repository: ${{ github.repository }}
+      environment: Dev
       reports: '{"Github Vulnerability Scan": "github.json"}'
   - name: Show response
     run: |
       set -e
       printf '%s\n' '${{ steps.defectdojo.outputs.response }}'
 ```
+
+For `SonarQube API Import` don't forget to create a Tool config in your DefectDojo!
