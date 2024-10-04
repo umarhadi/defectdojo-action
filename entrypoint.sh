@@ -115,11 +115,11 @@ for testName in "${testsArray[@]}"; do
         githubOrg=$(echo $DEFECTDOJO_GITHUB_REPO | cut -d "/" -f 1)
         repositoryName=$(echo $DEFECTDOJO_GITHUB_REPO | cut -d "/" -f 2)
         query='query getVulnerabilitiesByRepoAndOwner($name: String!, $owner: String!) { repository(name: $name, owner: $owner) { vulnerabilityAlerts(first: 100) { nodes { id createdAt vulnerableManifestPath securityVulnerability { severity package { name ecosystem } advisory { description summary identifiers { value type } references { url } cvss { vectorString } } } vulnerableManifestPath }}}}'
-        $(curl -X POST 'https://api.github.com/graphql' \
-                    -H "Authorization: Bearer $DEFECTDOJO_GITHUB_TOKEN" \
-                    -H "Content-Type: application/json" \
-                    -d "{ \"query\": \"$query\", \"variables\": {\"name\": \"$repositoryName\", \"owner\": \"$githubOrg\" } }" \
-                    > github.json)
+        curl -X POST 'https://api.github.com/graphql' \
+            -H "Authorization: Bearer $DEFECTDOJO_GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{ \"query\": \"$query\", \"variables\": {\"name\": \"$repositoryName\", \"owner\": \"$githubOrg\" } }" \
+            > github.json
     fi
     test=$(curl -X GET "$DEFECTDOJO_URL/api/v2/tests/?title=${testName// /%20}&engagement=$engagement" -H "Authorization: Token $DEFECTDOJO_TOKEN" -H "accept: application/json" -H "Content-Type: application/json" | jq -r '.results' | jq -r '.[0].id')
     if ! [[ -z "$test" ]]; then
